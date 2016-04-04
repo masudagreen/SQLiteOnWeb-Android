@@ -40,3 +40,7 @@ You can run SQL from browser to query insert or update.
 Have fun. 🚀
 
 ![image](./screenshots/2.png)
+
+## License
+
+SQLiteOnWeb is available under the MIT license. See the LICENSE file for more info.
