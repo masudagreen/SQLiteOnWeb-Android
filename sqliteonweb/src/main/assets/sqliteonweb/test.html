@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SQLite On Web</title>
+    <script src="/sqliteonweb/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script src="/sqliteonweb/vendor/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="/sqliteonweb/vendor/handlebars-v4.0.5.js"></script>
+    <link rel="stylesheet" href="/sqliteonweb/vendor/Font-Awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/sqliteonweb/vendor/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>SQLite On Web</h1>
+    <p>测试打开数据库</p>
+    <input id="db-name" type="text"></input>
+    <button id="open-db" type="button">打开</button>
+    <br/>
+    <input id="sql-text" type="text"></input>
+    <button id="query-sql" type="button">查询</button>
+
+    <div id="result">
+        
+    </div>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+
+        templates = [];
+        $('script[type="text/x-handlebars-template"]').each(function() {
+            html = $(this).html();
+            name = $(this).attr("id");
+            templates[name] = Handlebars.compile(html);
+            console.log(templates);
+        });
+
+        $('#open-db').click(function() {
+            var name = $('#db-name').val();
+            console.log('open db ' + name);
+            $.getJSON('/open', {name: name}, function(res) {
+                console.log(res);
+            });
+        });
+
+        $('#query-sql').click(function() {
+            var sql = $('#sql-text').val();
+            console.log('query ' + sql);
+            $.getJSON('/execSQL', {sql: sql}, function(res) {
+                console.log(res);
+                var html = templates['template-result'](res);
+                $("#result").html(html);
+            });
+        });
+    });
+    </script>
+    <script id="template-result" type="text/x-handlebars-template">
+        <table>
+            <thead>
+                <tr>
+                    {{#each columnNames}}
+                    <td>{{this}}</td>
+                    {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each rows}}
+                <tr>
+                    {{#each this}}
+                        <td>{{this}}</td>
+                    {{/each}}
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
+</body>
+</html>

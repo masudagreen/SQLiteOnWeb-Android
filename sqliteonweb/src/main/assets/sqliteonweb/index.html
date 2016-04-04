@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SQLite On Web</title>
+    <script src="/sqliteonweb/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script src="/sqliteonweb/vendor/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    <script src="/sqliteonweb/vendor/handlebars-v4.0.5.js"></script>
+    <link rel="stylesheet" href="/sqliteonweb/vendor/Font-Awesome-4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/sqliteonweb/vendor/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <script src="/sqliteonweb/sqlite.js"></script>
+    <script src="/sqliteonweb/app.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">SQLiteOnWeb</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://www.sqlite.org/lang.html" target="_blank">SQL Syntax</a></li>
+                <li><a href="https://github.com/skyhacker2/SQLiteOnWeb-Android" target="_blank">Github</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-default ">
+                    <div class="panel-heading">DB List</div>
+                    <div class="db-list panel-body"></div>
+                </div>
+            </div>
+            <div class="col-md-9 query-container" style="display: none;">
+                <div class="input-group">
+                    <input type="text" class="form-control sql-input" placeholder="Input SQL">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default sql-button" type="button">Run</button>
+                    </span>
+                </div>
+                <div class="query-result" style="margin-top: 20px;">
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script id="template-dbs" type="text/x-handlebars-template">
+        <div class="list-group">
+            {{#each rows}}
+                <button type="button" class="list-group-item db" data-db-name="{{this}}">{{this}}</button>
+            {{/each}}
+        </div>
+    </script>
+    <script id="template-tables" type="text/x-handlebars-template">
+        {{#each rows}}
+            <button style="background:#f5f5f5;" type="button" class="list-group-item table-name" data-table-name="{{this.[1]}}">{{this.[1]}}</button>
+        {{/each}}
+    </script>
+    <script id="template-query-result" type="text/x-handlebars-template">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                {{#each columnNames}}
+                    <th>{{this}}</th>
+                {{/each}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#each rows}}
+                    <tr>
+                        {{#each this}}
+                            <td>{{this}}</td>
+                        {{/each}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </script>
+    <script id="template-alert" type="text/x-handlebars-template">
+        <div class="alert alert-danger" role="alert">{{text}}</div>
+    </script>
+
+</body>
+</html>
