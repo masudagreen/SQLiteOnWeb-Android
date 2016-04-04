@@ -1,4 +1,4 @@
-package io.github.skyhacker2.sqliteonweb_no_op;
+package io.github.skyhacker2.sqliteonweb;
 
 import android.content.Context;
 
