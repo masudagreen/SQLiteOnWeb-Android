@@ -188,6 +188,8 @@ public class SQLiteOnWeb implements AndroidServer.AndroidServerListener{
                             case Cursor.FIELD_TYPE_STRING:
                                 row.add(cursor.getString(i));
                                 break;
+                            default:
+                                row.add("");
                         }
                     }
                     queryResult.rows.add(row);
