@@ -183,7 +183,7 @@ public class SQLiteOnWeb implements AndroidServer.AndroidServerListener{
                                 row.add(Float.valueOf(cursor.getFloat(i)));
                                 break;
                             case Cursor.FIELD_TYPE_INTEGER:
-                                row.add(Integer.valueOf(cursor.getInt(i)));
+                                row.add(Long.valueOf(cursor.getLong(i)));
                                 break;
                             case Cursor.FIELD_TYPE_STRING:
                                 row.add(cursor.getString(i));
