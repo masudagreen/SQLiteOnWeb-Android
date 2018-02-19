@@ -13,7 +13,7 @@ releaseCompile 'io.github.skyhacker2:sqliteonweb-no-op:1.0.2'
 ## Setup
 
 In `Application` or `Activity`
-
+wow
 ```
 SQLiteOnWeb.init(this).start();
 
